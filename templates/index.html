@@ -12,7 +12,29 @@
 <div class="jumbotron" style="text-align:center;">
   <img src="/static/tbl.png" width="100%">
   <p>Buy and sell textbooks right within your school!</p>
-  <p><a class="btn btn-primary btn-lg" href=/login.html>Get Started</a></p>
+  <p><a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-signup">Get Started</a></p>
+  <div class="modal fade" id="modal-signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><img class="banner" src="/static/tbl.png"></h4>
+      </div>
+      <div class="modal-body">
+        <h1>Sign Up</h1>
+        <form id=signup>
+          <input type="email" name="email" class="form-control" placeholder="Email">
+          <input type="password" name="password" class="form-control" placeholder="Password">
+          <input type="password" name="c-password" class="form-control" placeholder="Confirm Password">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </div>
 
 <div class="row">
