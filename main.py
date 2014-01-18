@@ -30,18 +30,32 @@ class MainHandler(BaseHandler):
     def post(self):
         pass
 
+class SellHandler(BaseHandler):
+    def get(self):
+        self.render('sell.html')
 
-class BookHandler(BaseHandler):
-    def get(self, book_id):
-        self.write('Look up the book by id in DB and display stuff here')
+class BuyHandler(BaseHandler):
+    def get(self):
+        self.render('buy.html')
 
-class CourseHandler(BaseHandler):
-    def get(self, course_id):
-        self.write('Look up the course by id in DB and display stuff here')
+class AddHandler(BaseHandler):
+    def get(self):
+        self.render('add.html')
+
+class LoginHandler(BaseHandler):
+    def get(self):
+        self.render('login.html')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
+<<<<<<< HEAD
     (r'/book/(\d+)', BookHandler),
     (r'/course/(\d+)', CourseHandler)
+=======
+    ('/sell', SellHandler),
+    ('/buy', BuyHandler),
+    ('/add', AddHandler),
+    ('/login', LoginHandler)
+>>>>>>> be6e60817d50085d043c3c05ac14f510018e0cec
     # (r'/signup/(\d+)', SignupHandler)
 ], debug=True)

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Textbookloop - Buy{% endblock %}
+{% block content %}
+<div class="mainbody pull-left">
+  <h1>What are you looking for?</h1>
+  <div class="form-group">
+      <label class="control-label">School</label>
+      <div class="controls">
+          <input type="text" class="form-control">
+      </div>
+  </div>
+  <div class="form-group">
+      <label class="control-label">Course</label>
+      <div class="controls">
+          <input type="text" class="form-control">
+      </div>
+  </div><h1 class="page-header">Found:</h1>
+  <ul class="list-group" style="width:100%">
+      <li class="list-group-item">
+          <p class="pull-left">Book One - <a>Available: $35</a></p>
+          <a class="pull-right">Add to Wishlist</a>
+      </li>
+      <li class="list-group-item">
+          <p class="pull-left">Book Two - <a>Available: $65</a></p>
+          <a class="pull-right">Add to Wishlist</a>
+      </li>
+      <li class="list-group-item">
+          <p class="pull-left">Book Three - <a>Available: $15</a></p>
+          <a class="pull-right">Add to Wishlist</a>
+      </li>
+  </ul>
+</div>
+<div class="pull-right sidebar">
+  <h1 class="page-header">Wishlist</h1>
+  <ul class="list-group pull-right" style="width:100%">
+      <li class="list-group-item">
+          <p class="pull-left">Book One</p><a class="pull-right">Remove</a>
+      </li>
+      <li class="list-group-item">
+          <p class="pull-left">Book Two</p><a class="pull-right">Remove</a>
+      </li>
+      <li class="list-group-item">
+          <p class="pull-left">Book Three</p><a class="pull-right">Remove</a>
+      </li>
+      <li class="list-group-item">
+          <p class="pull-left">Book Four</p><a class="pull-right">Remove</a>
+      </li>
+      <li class="list-group-item">
+          <p class="pull-left">Book Five</p><a class="pull-right">Remove</a>
+      </li>
+      <li class="list-group-item">
+          <p class="pull-left">Book Siz</p><a class="pull-right">Remove</a>
+      </li>
+  </ul>
+</div>
+{% endblock %}
