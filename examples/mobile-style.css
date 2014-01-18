@@ -7,11 +7,8 @@ footer {
   font-weight:bold;
 }
 .sidebar {
-  width:35%;
-  display:inline-block;
-  margin-top: -20px;
+  width:100%;
 }
 .mainbody {
-  width:60%;
-  display:inline-block;
+  width:100%;
 }
