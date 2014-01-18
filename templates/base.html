@@ -28,15 +28,34 @@
               <li>
                 <a href="/add">Add</a>
               </li>
-              <li>
-                <a href="/login">Login</a>
-              </li>
+              <li><a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-signin">Login</a></li>
             </ul>
           </div>
         </div>
       </div>
     {% block content %}
     {% endblock %}
+    <div class="modal fade" id="modal-signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel"><img class="banner" src="/static/tbl.png"></h4>
+          </div>
+          <div class="modal-body">
+            <h1>Sign In</h1>
+            <form id=signup>
+              <input type="email" name="email" class="form-control" placeholder="Email">
+              <input type="password" name="password" class="form-control" placeholder="Password">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Submit</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <script>
         $(".nav [href='"+window.location.pathname+"']").parent().addClass("active");
     </script>
