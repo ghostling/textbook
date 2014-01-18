@@ -10,6 +10,7 @@ import models as md
 import logging
 
 from secret import SECRET_KEY
+from colleges import COLLEGES
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_environment = jinja2.Environment(
