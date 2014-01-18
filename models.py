@@ -7,7 +7,6 @@ class book(ndb.Model):
     isbn = ndb.StringProperty(required=True)
     image = ndb.StringProperty() # just be a link to an image for now?
     orig_price = ndb.FloatProperty()
-    foo = ndb.StringProperty(required=True)
 
 class course(ndb.Model):
     """a course with a list of textbooks for the course. title is something like
@@ -24,6 +23,7 @@ class student(ndb.Model):
     name = ndb.StringProperty(required=True)
     email = ndb.StringProperty(required=True)
     schoolname = ndb.StringProperty(required=True)
+    pw_hash = ndb.StringProperty(required=True)
 
 class collection(ndb.Model):
     """represents all available books of a given title"""
