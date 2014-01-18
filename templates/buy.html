@@ -7,7 +7,7 @@
     <div class="form-group">
         <label class="control-label">Course</label>
         <div class="controls">
-            <input type="text" name="coursename" class="form-control" value={{course}}>
+            <input type="text" name="coursename" class="form-control" value="{{course}}">
         </div>
     </div>
   </form>
@@ -23,7 +23,7 @@
     </li>
     {% endfor %}
   </ul>
-  {% else %}
+  {% elif course %}
   Sorry, we're unable to find any books for <strong>{{ course }}</strong> currently. :(
   {% endif %}
 </div>
