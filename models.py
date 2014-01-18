@@ -6,7 +6,6 @@ class Book(ndb.Model):
     authors = ndb.StringProperty(required=True)
     isbn = ndb.StringProperty(required=True)
     image = ndb.StringProperty() # just be a link to an image for now?
-    orig_price = ndb.FloatProperty()
 
 class Course(ndb.Model):
     """a course with a list of textbooks for the course. title is something like

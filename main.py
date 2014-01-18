@@ -101,6 +101,37 @@ class SellHandler(BaseHandler):
     def get(self):
         self.render('sell.html')
 
+    def post(self):
+
+        title = self.request.get('title')
+        authors = self.request.get('authors')
+        isbn = self.request.get('isbn')
+        image_url = self.request.get('image')
+
+        book = md.Book(
+            title=title,
+            authors=authors,
+            isbn=isbn,
+            image=image_url,
+        )
+
+        #check if textbook belongs to any course
+        parent_course = md.Course.query(md.Course.textbooks.IN(book))
+        if parent_course:
+            #belongs to at least 1
+            student = md.Student.get_by_id(self.user)
+            collection = md.Collection.query(md.Collection.book == book)
+            if collection:
+                collection.owner.append(student)
+            else:
+                collection = md.Collection(book=book, owner=[student])
+                collection.put()
+
+        #else:
+            #doesn't belong to any, notify and prompt to add to a course
+
+        #add to collection
+
 class BuyHandler(BaseHandler):
     def get(self):
 
@@ -110,8 +141,14 @@ class BuyHandler(BaseHandler):
         course_title = self.request.get("coursename")
         course = md.Course.query(md.Course.title == course_title).fetch(1)
         book_list = None
+        collections = None
         if course:
             book_list = course.textbooks
+
+            #find collections for da books
+            for book in book_list:
+                collection = md.Collection.query(md.Collection.book == book)
+                collections.append
 
         # TODO: Just the course.textbooks is probably not what we want. We
         # need to use the Collection object somehow as that tells us if those
@@ -119,7 +156,8 @@ class BuyHandler(BaseHandler):
 
         # After querying for a specific course by its title, we can render the
         # page again with the new information.
-        self.render('buy.html', book_list=book_list, course=course_title)
+        self.render('buy.html', book_list=book_list, course=course_title,
+            collections=collections)
 
 class AddHandler(BaseHandler):
     def get(self):
