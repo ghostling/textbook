@@ -3,7 +3,11 @@
 {% block title %}Textbookloop{% endblock %}
 
 {% block head %}
-
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="/static/collegeAC.js"></script>
 <style>
     td {
         text-align: right;
@@ -33,7 +37,7 @@
                 <td>Name: </td><td><input type="text" name="name" class="form-control" placeholder="Name"></td>
             </tr>
             <tr>
-                <td>College: </td><td><input type="text" name="college" class="form-control" placeholder="College"></td>
+                <td>College: </td><td><div class="ui-widget"><input type="text" name="college" class="form-control" placeholder="College" id="school"></div></td>
             </tr>
             <tr>
                 <td>Email: </td><td><input type="email" name="email" class="form-control" placeholder="Email"></td>
