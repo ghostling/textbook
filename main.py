@@ -209,7 +209,7 @@ class SignupHandler(BaseHandler):
 
     check_user_email = []
 
-    for x in range(0,len(email)):
+    for x in range(0,len(check_user_email)):
         check_user_email.append(email[x])
 
     at_found = False
