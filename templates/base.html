@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    {% block head %}
+    {% endblock %}
     <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -28,8 +30,14 @@
               <li>
                 <a href="/add">Add</a>
               </li>
-              <li><a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-signin">Login</a></li>
             </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if not loggedin %}
+              <li><a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-signin">Login</a></li>
+          {% else %}
+            <li><a class="btn btn-primary btn-lg" href="/logout">Logout</a></li>
+          {% endif %}
+          </ul>
           </div>
         </div>
       </div>
@@ -44,15 +52,15 @@
           </div>
           <div class="modal-body">
             <h1>Sign In</h1>
-            <form id=signup>
+            <form id="signup" action="/login" method="post">
               <input type="email" name="email" class="form-control" placeholder="Email">
               <input type="password" name="password" class="form-control" placeholder="Password">
-            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Submit</button>
+            <input type="submit" class="btn btn-primary">
           </div>
+            </form>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->

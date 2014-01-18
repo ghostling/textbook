@@ -4,6 +4,8 @@ import json
 import logging
 import os
 import hashlib
+import random
+import string
 import urllib2
 import webapp2
 import models as md
@@ -53,6 +55,7 @@ def getBookInfoFromISBN(isbn):
 class BaseHandler(webapp2.RequestHandler):
     def render(self, template, **kw):
         """Allows rendering of templates followed by template_args."""
+        kw['loggedin'] = self.user
         self.response.out.write(render_str(template, **kw))
 
     def write(self, *a, **kw):
@@ -84,15 +87,14 @@ class BaseHandler(webapp2.RequestHandler):
         that the user is logged in before giving them more permissions."""
         webapp2.RequestHandler.initialize(self, *a, **kw)
         uid = self.readSecureCookie('user_id')
-        self.user = uid and Account.byID(int(uid))
+        self.user = uid and md.Student.get_by_id(int(uid))
 
 class MainHandler(BaseHandler):
     def get(self):
-
-        context_obj = {
-        }
-
-        self.render('index.html', context = context_obj)
+        if self.user:
+            self.render('homestream.html')
+        else:
+            self.render('index.html')
 
     def post(self):
         pass
@@ -127,7 +129,7 @@ class AddHandler(BaseHandler):
 
 class LoginHandler(BaseHandler):
     def get(self):
-        self.render('login.html')
+        pass
 
     def post(self):
         email = self.request.get('email')
@@ -135,46 +137,48 @@ class LoginHandler(BaseHandler):
 
         # Look up the student by email address and check the password hash
         # against inputted password.
-        s = md.Student.query(md.Student.email == email)
-        if validPW(s.name, pw, s.pw_hash):
+        s = md.Student.query(md.Student.email == email).fetch(1)[0]
+        if s and validPW(s.name, pw, s.pw_hash):
             self.login(s)
+            self.redirect('/')
         else:
             pass # TODO: bad login error handling
 
-class SignupHandler(BaseHandler):
+class LogoutHandler(BaseHandler):
     def get(self):
+        self.logout()
+        self.redirect('/')
+
+class SignupHandler(BaseHandler):
+    def get(self, errors={}):
         pass
 
     def post(self):
         # Get values from the signup form.
         name = self.request.get('name')
+        college = self.request.get('college')
         email = self.request.get('email')
         pw = self.request.get('password')
-        pw_confirm = self.request.get('pw_confirm')
-        college = self.request.get('college')
+        pw_confirm = self.request.get('c-password')
+
+        errors = {}
 
         #Verify that the e-mail is not in DB
-        verifyemail = Student.email.query().fetch(1)
-        if verifyemail != "":
-            print "This e-mail is in already in use. Please use another e-mail address."
-        else:
-            Student.email = email
+        verify_email = md.Student.query(md.Student.email == email).fetch(1)
+        if verify_email:
+            errors['email_error'] = 'This e-mail is in already in use. Please use another e-mail address.'
 
-        verifycollege = Course.schoolname.query().fetch(1)
-        if verifycollege != "":
-            Course.coursename = college
-        else:
-            print "This university is not supported by our system. Sorry!"
+        if pw != pw_confirm:
+            errors['pw_error'] = 'Your passwords do not match!'
 
-        if pw == pw_confirm:
+        if errors == {}:
             new_student = md.Student(name=name,
                                  email=email,
                                  pw_hash=makePWHash(name, pw),
-                                 college=college)
+                                 schoolname=college)
             new_student.put()
-
         else:
-            print "Passwords do not match. Please retype your password."
+            self.redirect('/#signup')
 
 
         # A user is immediately logged in after signup.
@@ -187,5 +191,6 @@ app = webapp2.WSGIApplication([
     ('/buy', BuyHandler),
     ('/add', AddHandler),
     ('/login', LoginHandler),
+    ('/logout', LogoutHandler),
     ('/signup', SignupHandler)
 ], debug=True)
