@@ -20,11 +20,18 @@ class BaseHandler(webapp2.RequestHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
-        name = 'Bob'
-        self.render('index.html', name=name)
+        book = md.book(title="Book Title",
+                authors="Bob, Jim",
+                isbn="1234567890",
+                image="http://placehold.it/350x150",
+                orig_price=45.33)
+        book.put()
+
+        self.render('index.html')
 
     def post(self):
         pass
+
 
 class BookHandler(BaseHandler):
     def get(self, book_id):
