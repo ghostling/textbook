@@ -206,6 +206,28 @@ class SignupHandler(BaseHandler):
         if verify_email:
             errors['email_error'] = 'This e-mail is in already in use. Please use another e-mail address.'
 
+# Checks to make sure the  e-mail address is valid.
+
+    check_user_email = []
+
+    for x in range(0,len(email)):
+        check_user_email.append(email[x])
+
+    at_found = False
+    for items in check_user_email:
+        if items == "@":
+            at_found = True
+            break
+
+    dot_found = False
+    for items in check_user_email:
+        if items == ".":
+            dot_found = True
+            break
+
+    if at_found and dot_found =! True:
+        errors['email_error'] = 'This address is invalid. Please use another e-mail address.'
+
         if pw != pw_confirm:
             errors['pw_error'] = 'Your passwords do not match!'
 
