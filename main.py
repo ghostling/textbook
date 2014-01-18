@@ -48,14 +48,9 @@ class LoginHandler(BaseHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-<<<<<<< HEAD
-    (r'/book/(\d+)', BookHandler),
-    (r'/course/(\d+)', CourseHandler)
-=======
     ('/sell', SellHandler),
     ('/buy', BuyHandler),
     ('/add', AddHandler),
     ('/login', LoginHandler)
->>>>>>> be6e60817d50085d043c3c05ac14f510018e0cec
     # (r'/signup/(\d+)', SignupHandler)
 ], debug=True)
