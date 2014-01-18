@@ -153,15 +153,29 @@ class SignupHandler(BaseHandler):
         pw_confirm = self.request.get('pw_confirm')
         college = self.request.get('college')
 
-        # TODO: verify name, email, college is not in DB
-        # and is valid. verify passwords match
+        #Verify that the e-mail is not in DB
+        verifyemail = Student.email.query().fetch(1)
+        if verifyemail != "":
+            print "This e-mail is in already in use. Please use another e-mail address."
+        else:
+            Student.email = email
 
-        # Create a new user and add to database.
-        new_student = md.Student(name=name,
+        verifycollege = Course.schoolname.query().fetch(1)
+        if verifycollege != "":
+            Course.coursename = college
+        else:
+            print "This university is not supported by our system. Sorry!"
+
+        if pw == pw_confirm:
+            new_student = md.Student(name=name,
                                  email=email,
                                  pw_hash=makePWHash(name, pw),
                                  college=college)
-        new_student.put()
+            new_student.put()
+
+        else:
+            print "Passwords do not match. Please retype your password."
+
 
         # A user is immediately logged in after signup.
         self.login(new_student)
