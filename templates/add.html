@@ -5,6 +5,16 @@
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="/static/collegeAC.js"></script>
+<script src="/static/add.js"></script>
+
+<style>
+    a:hover {
+        cursor: pointer;
+    }
+    .isbn-field {
+        margin-top: 10px;
+    }
+</style>
 {% endblock %}
 {% block title %}Textbookloop - Add{% endblock %}
 {% block content %}
@@ -26,10 +36,13 @@
 <div class="form-group">
   <label class="control-label">Book(s)</label>
   <div class="controls">
-    <input type="text" class="form-control pull-left input-lg" placeholder="Add Book by ISBN....">
+      <div id="coursebooks">
+    <input type="text" class="form-control pull-left input-lg isbn-field" placeholder="Add Book by ISBN....">
+    </div>
+</div>
   </div>
 </div>
-<a>Add more books...</a><br>
+<p><a id="addMoreBooks">Add more books...</a></p>
 <input type="submit" class="btn btn-primary">
 </form>
 {% endblock %}
