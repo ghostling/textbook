@@ -107,16 +107,18 @@ class BuyHandler(BaseHandler):
 
     def post(self):
         course_title = self.request.get("coursename")
-        course = md.Course.query(md.Course.title == course_title)
+        course = md.Course.query(md.Course.title == course_title).fetch(1)
+        book_list = None
+        if course:
+            book_list = course.textbooks
+
+        # TODO: Just the course.textbooks is probably not what we want. We
+        # need to use the Collection object somehow as that tells us if those
+        # books are actually available...
 
         # After querying for a specific course by its title, we can render the
         # page again with the new information.
-        self.render('buy.html', book_list=course.textbooks)
-
-        # TODO: On this page the course name was filled in, after searching,
-        # we don't want to lose the query entered, so we should pass that back
-        # into the page
-
+        self.render('buy.html', book_list=book_list, course=course_title)
 
 class AddHandler(BaseHandler):
     def get(self):
