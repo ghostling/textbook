@@ -129,10 +129,9 @@ class SellHandler(BaseHandler):
                 collection = md.Collection(book=book, owner=[student])
                 collection.put()
 
+        #TO DO:
         #else:
             #doesn't belong to any, notify and prompt to add to a course
-
-        #add to collection
 
 class BuyHandler(BaseHandler):
     def get(self):
@@ -225,7 +224,7 @@ class SignupHandler(BaseHandler):
             dot_found = True
             break
 
-    if at_found and dot_found =! True:
+    if at_found and dot_found != True:
         errors['email_error'] = 'This address is invalid. Please use another e-mail address.'
 
         if pw != pw_confirm:
