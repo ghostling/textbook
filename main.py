@@ -51,31 +51,39 @@ def getBookInfoFromISBN(isbn):
 
 class BaseHandler(webapp2.RequestHandler):
     def render(self, template, **kw):
+        """Allows rendering of templates followed by template_args."""
         self.response.out.write(render_str(template, **kw))
 
     def write(self, *a, **kw):
+        """Simply writes some plain text to page/http response."""
         self.response.out.write(*a, **kw)
 
     def setSecureCookie(self, name, val):
+        """Sets a secure cookie of a given name and value."""
         cookieVal = makeSecureVal(val)
         self.response.headers.add_header(
                 'Set-Cookie',
                 '%s=%s; Path=/' % (name, cookieVal))
 
     def readSecureCookie(self, name):
+        """Checks if a cookie is authentic."""
         cookieVal = self.request.cookies.get(name)
         return cookieVal and checkSecureVal(cookieVal)
 
     def login(self, user):
+        """Logging in basically sets a secure cookie for that user."""
         self.setSecureCookie('user_id', str(user.key.id()))
 
     def logout(self):
+        """For logout we can simply get rid of the original cookie values."""
         self.response.headers.add_header('Set-Cookie', 'user_id=; Path=/')
 
     def initialize(self, *a, **kw):
+        """Function called before each page handler's get(), so we can verify
+        that the user is logged in before giving them more permissions."""
         webapp2.RequestHandler.initialize(self, *a, **kw)
         uid = self.readSecureCookie('user_id')
-        # self.user = uid and Account.byID(int(uid))
+        self.user = uid and Account.byID(int(uid))
 
 class MainHandler(BaseHandler):
     def get(self):
@@ -94,17 +102,20 @@ class SellHandler(BaseHandler):
 
 class BuyHandler(BaseHandler):
     def get(self):
+
         self.render('buy.html')
 
-    def get(post):
+    def post(self):
         course_title = self.request.get("coursename")
-        course = md.course.query(md.course.title == course_title)
-        context_obj = { 
-            "books": https://github.com/ghostling/textbook.git,
-            "title": course_title,
-        }
+        course = md.Course.query(md.Course.title == course_title)
 
-        self.render('buy.html', context = context_obj)
+        # After querying for a specific course by its title, we can render the
+        # page again with the new information.
+        self.render('buy.html', book_list=course.textbooks)
+
+        # TODO: On this page the course name was filled in, after searching,
+        # we don't want to lose the query entered, so we should pass that back
+        # into the page
 
 
 class AddHandler(BaseHandler):
@@ -119,10 +130,13 @@ class LoginHandler(BaseHandler):
         email = self.request.get('email')
         pw = self.request.get('password')
 
-        s = md.student.query(email) # syntax
-        valid = validPW(s.name, pw, s.pw_hash)
-
-        self.login(s)
+        # Look up the student by email address and check the password hash
+        # against inputted password.
+        s = md.Student.query(md.Student.email == email)
+        if validPW(s.name, pw, s.pw_hash):
+            self.login(s)
+        else:
+            pass # TODO: bad login error handling
 
 class SignupHandler(BaseHandler):
     def get(self):
@@ -140,7 +154,7 @@ class SignupHandler(BaseHandler):
         # and is valid. verify passwords match
 
         # Create a new user and add to database.
-        new_student = md.student(name=name,
+        new_student = md.Student(name=name,
                                  email=email,
                                  pw_hash=makePWHash(name, pw),
                                  college=college)
