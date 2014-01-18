@@ -9,6 +9,7 @@
 {% block title %}Textbookloop - Add{% endblock %}
 {% block content %}
 <h1>Add a Course</h1>
+<form method="post">
 <div class="form-group">
     <div class="ui-widget">
   <label class="control-label" for="school">School</label>
@@ -29,5 +30,6 @@
   </div>
 </div>
 <a>Add more books...</a><br>
-<a class="btn btn-primary">Submit Course</a>
+<input type="submit" class="btn btn-primary">
+</form>
 {% endblock %}
