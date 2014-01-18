@@ -20,13 +20,6 @@ class BaseHandler(webapp2.RequestHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
-        book = md.Book(title="Book Title",
-                authors=["Bob","Jim"],
-                isbn="1234567890",
-                image="http://placehold.it/350x150",
-                orig_price=45.33)
-        book.put()
-
         self.render('index.html')
 
     def post(self):
@@ -44,9 +37,15 @@ class AddHandler(BaseHandler):
     def get(self):
         self.render('add.html')
 
+class LoginHandler(BaseHandler):
+    def get(self):
+        self.render('login.html')
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/sell', SellHandler),
     ('/buy', BuyHandler),
     ('/add', AddHandler),
+    ('/login', LoginHandler)
+    # (r'/signup/(\d+)', SignupHandler)
 ], debug=True)

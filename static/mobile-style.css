@@ -12,3 +12,8 @@ footer {
 .mainbody {
   width:100%;
 }
+.banner{
+  width: 50%;
+  height: auto;
+  margin-top: -10px;
+}

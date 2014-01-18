@@ -18,3 +18,21 @@ footer {
 .controls {
   padding-bottom: 10px;
 }
+.shade {
+  width: 100vw;
+  height: 100vh;
+  background-color: #222;
+}
+.frame {
+  width: 50%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  margin-top: 5%;
+}
+.banner{
+  width: 50%;
+  height: auto;
+  margin-top: -10px;
+}
