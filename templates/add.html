@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Textbookloop - Add{% endblock %}
+{% block content %}
+<h1>Add a Course</h1>
+<div class="form-group">
+  <label class="control-label">School</label>
+  <div class="controls">
+    <input type="text" class="form-control">
+  </div>
+</div>
+<div class="form-group">
+  <label class="control-label">Course</label>
+  <div class="controls">
+    <input type="text" class="form-control">
+  </div>
+</div>
+<div class="form-group">
+  <label class="control-label">Book(s)</label>
+  <div class="controls">
+    <input type="text" class="form-control pull-left input-lg" placeholder="Add Book by ISBN....">
+  </div>
+</div>
+<a>Add more books...</a><br>
+<a class="btn btn-primary">Submit Course</a>
+{% endblock %}

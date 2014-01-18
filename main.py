@@ -20,22 +20,33 @@ class BaseHandler(webapp2.RequestHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
-        name = 'Bob'
-        self.render('index.html', name=name)
+        book = md.Book(title="Book Title",
+                authors=["Bob","Jim"],
+                isbn="1234567890",
+                image="http://placehold.it/350x150",
+                orig_price=45.33)
+        book.put()
+
+        self.render('index.html')
 
     def post(self):
         pass
 
-class BookHandler(BaseHandler):
-    def get(self, book_id):
-        self.write('Look up the book by id in DB and display stuff here')
+class SellHandler(BaseHandler):
+    def get(self):
+        self.render('sell.html')
 
-class CourseHandler(BaseHandler):
-    def get(self, course_id):
-        self.write('Look up the course by id in DB and display stuff here')
+class BuyHandler(BaseHandler):
+    def get(self):
+        self.render('buy.html')
+
+class AddHandler(BaseHandler):
+    def get(self):
+        self.render('add.html')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    (r'/book/(\d+)', BookHandler),
-    (r'/course/(\d+)', CourseHandler)
+    ('/sell', SellHandler),
+    ('/buy', BuyHandler),
+    ('/add', AddHandler),
 ], debug=True)
