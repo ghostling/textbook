@@ -96,6 +96,17 @@ class BuyHandler(BaseHandler):
     def get(self):
         self.render('buy.html')
 
+    def get(post):
+        course_title = self.request.get("coursename")
+        course = md.course.query(md.course.title == course_title)
+        context_obj = { 
+            "books": https://github.com/ghostling/textbook.git,
+            "title": course_title,
+        }
+
+        self.render('buy.html', context = context_obj)
+
+
 class AddHandler(BaseHandler):
     def get(self):
         self.render('add.html')
