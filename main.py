@@ -2,6 +2,7 @@ import webapp2
 import jinja2
 import os
 import models as md
+import logging
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_environment = jinja2.Environment(
@@ -20,14 +21,11 @@ class BaseHandler(webapp2.RequestHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
-        book = md.book(title="Book Title",
-                authors="Bob, Jim",
-                isbn="1234567890",
-                image="http://placehold.it/350x150",
-                orig_price=45.33)
-        book.put()
 
-        self.render('index.html')
+        context_obj = {
+        }
+
+        self.render('index.html', context = context_obj)
 
     def post(self):
         pass
@@ -45,5 +43,5 @@ app = webapp2.WSGIApplication([
     ('/', MainHandler),
     (r'/book/(\d+)', BookHandler),
     (r'/course/(\d+)', CourseHandler)
-    (r'/signup/(\d+)', SignupHandler)
+    # (r'/signup/(\d+)', SignupHandler)
 ], debug=True)
