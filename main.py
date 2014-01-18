@@ -5,6 +5,7 @@ import os
 import urllib2
 import webapp2
 import models as md
+import logging
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_environment = jinja2.Environment(
@@ -31,7 +32,11 @@ class BaseHandler(webapp2.RequestHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
-        self.render('index.html')
+
+        context_obj = {
+        }
+
+        self.render('index.html', context = context_obj)
 
     def post(self):
         pass

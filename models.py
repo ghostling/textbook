@@ -14,6 +14,7 @@ class course(ndb.Model):
     Data Structures and Algorithms, name is EECS 281"""
     title = ndb.StringProperty(required=True)
     name = ndb.StringProperty(required=True)
+    schoolname = ndb.StringProperty(required=True)
     textbooks = ndb.StructuredProperty(book, repeated=True)
 
 class student(ndb.Model):
@@ -22,7 +23,7 @@ class student(ndb.Model):
     selling = ndb.StructuredProperty(book, repeated=True)
     name = ndb.StringProperty(required=True)
     email = ndb.StringProperty(required=True)
-
+    schoolname = ndb.StringProperty(required=True)
 
 class collection(ndb.Model):
     """represents all available books of a given title"""
