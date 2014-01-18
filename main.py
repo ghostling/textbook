@@ -164,6 +164,26 @@ class AddHandler(BaseHandler):
     def get(self):
         self.render('add.html')
 
+    # def post(self):
+    #     title = self.request.get("title")
+    #     name = self.request.get("name")
+    #     textbooks = self.request.get("textbooks")
+    #     book_titles = textbooks.split()
+    #     books = None;
+
+    #     # for book_title in book_titles:
+    #         #get the actual book
+
+    #     course = md.Course( 
+    #         title=title,
+    #         name=name,
+    #         schoolname= ,
+    #         textbooks=books,
+    #     )
+
+    #     course.put()
+
+
 class LoginHandler(BaseHandler):
     def get(self):
         pass
