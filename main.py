@@ -1,6 +1,9 @@
-import webapp2
 import jinja2
+import json
+import logging
 import os
+import urllib2
+import webapp2
 import models as md
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
@@ -10,6 +13,14 @@ jinja_environment = jinja2.Environment(
 def render_str(template, **params):
     t = jinja_environment.get_template(template)
     return t.render(params)
+
+def getBookInfoFromISBN(isbn):
+    link = "https://www.googleapis.com/books/v1/volumes?q=%s" % isbn
+    page = urllib2.urlopen(link).read()
+    j = json.loads(page)
+    title = j['items'][0]['volumeInfo']['title']
+    authors = j['items'][0]['volumeInfo']['authors']
+    return title, authors
 
 class BaseHandler(webapp2.RequestHandler):
     def render(self, template, **kw):

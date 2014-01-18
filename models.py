@@ -3,10 +3,11 @@ from google.appengine.ext import ndb
 class book(ndb.Model):
     """represents a single book"""
     title = ndb.StringProperty(required=True)
-    authors = ndb.StringProperty(repeated=False)
+    authors = ndb.StringProperty(required=True)
     isbn = ndb.StringProperty(required=True)
     image = ndb.StringProperty() # just be a link to an image for now?
-    orig_price = ndb.FloatProperty(required=True)
+    orig_price = ndb.FloatProperty()
+    foo = ndb.StringProperty(required=True)
 
 class course(ndb.Model):
     """a course with a list of textbooks for the course. title is something like
@@ -20,6 +21,8 @@ class student(ndb.Model):
     wishlist = ndb.StructuredProperty(book, repeated=True)
     selling = ndb.StructuredProperty(book, repeated=True)
     name = ndb.StringProperty(required=True)
+    email = ndb.StringProperty(required=True)
+
 
 class collection(ndb.Model):
     """represents all available books of a given title"""
