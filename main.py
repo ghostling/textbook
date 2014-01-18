@@ -75,7 +75,7 @@ class BaseHandler(webapp2.RequestHandler):
     def initialize(self, *a, **kw):
         webapp2.RequestHandler.initialize(self, *a, **kw)
         uid = self.readSecureCookie('user_id')
-        self.user = uid and Account.byID(int(uid))
+        # self.user = uid and Account.byID(int(uid))
 
 class MainHandler(BaseHandler):
     def get(self):
@@ -104,11 +104,21 @@ class LoginHandler(BaseHandler):
     def get(self):
         self.render('login.html')
 
+    def post(self):
+        email = self.request.get('email')
+        pw = self.request.get('password')
+
+        s = md.student.query(email) # syntax
+        valid = validPW(s.name, pw, s.pw_hash)
+
+        self.login(s)
+
 class SignupHandler(BaseHandler):
     def get(self):
         pass
 
     def post(self):
+        # Get values from the signup form.
         name = self.request.get('name')
         email = self.request.get('email')
         pw = self.request.get('password')
@@ -118,13 +128,15 @@ class SignupHandler(BaseHandler):
         # TODO: verify name, email, college is not in DB
         # and is valid. verify passwords match
 
+        # Create a new user and add to database.
         new_student = md.student(name=name,
                                  email=email,
                                  pw_hash=makePWHash(name, pw),
                                  college=college)
-
         new_student.put()
 
+        # A user is immediately logged in after signup.
+        self.login(new_student)
         self.redirect('/')
 
 app = webapp2.WSGIApplication([
