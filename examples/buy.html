@@ -1,95 +1,92 @@
 <!doctype html>
-
 <html>
-  
-  <head>
-    <title>Textbookloop - Sell</title>
-    <meta name="viewport" content="width=device-width">
-    <link rel=stylesheet media='only screen and (max-width: 600px)' href=mobile-style.css />
-    <link rel=stylesheet media='only screen and (min-width: 601px)' href=style.css />
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-  </head>
-  
-  <body>
-    <div class="container">
-      <div class="navbar navbar-default">
+    
+    <head>
+        <title>Textbookloop - Sell</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css">
+        <link rel="stylesheet" media="only screen and (max-width: 600px)" href="mobile-style.css">
+        <link rel="stylesheet" media="only screen and (min-width: 601px)" href="style.css">
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    </head>
+    
+    <body>
         <div class="container">
-          <div class="navbar-header">
-            <a href="#" class="navbar-brand"><img src="http://DiningWithStrangers.co/tbl.png?" width="150px" style="margin-top:-15px;margin-bottom:-10px"></a>
-          </div>
-          <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-              <li>
-                <a href="#">Sell</a>
-              </li>
-              <li class="active">
-                <a href="buy.html">Buy</a>
-              </li>
-            </ul>
-          </div>
+            <div class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand"><img src="/static/tbl.png" width="150px" style="margin-top:-15px;margin-bottom:-10px"></a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="#">Sell</a>
+                            </li>
+                            <li class="active">
+                                <a href="buy.html">Buy</a>
+                            </li>
+                            <li>
+                                <a href="add.html">Add Course</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mainbody pull-left">
+                <h1>What are you looking for?</h1>
+                <div class="form-group">
+                    <label class="control-label">School</label>
+                    <div class="controls">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Course</label>
+                    <div class="controls">
+                        <input type="text" class="form-control">
+                    </div>
+                </div><h1 class="page-header">Found:</h1>
+                <ul class="list-group" style="width:100%">
+                    <li class="list-group-item">
+                        <p class="pull-left">Book One - <a>Available: $35</a></p>
+                        <a class="pull-right">Add to Wishlist</a>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="pull-left">Book Two - <a>Available: $65</a></p>
+                        <a class="pull-right">Add to Wishlist</a>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="pull-left">Book Three - <a>Available: $15</a></p>
+                        <a class="pull-right">Add to Wishlist</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="pull-right sidebar">
+                <h1 class="page-header">Wishlist</h1>
+                <ul class="list-group pull-right" style="width:100%">
+                    <li class="list-group-item">
+                        <p class="pull-left">Book One</p><a class="pull-right">Remove</a>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="pull-left">Book Two</p><a class="pull-right">Remove</a>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="pull-left">Book Three</p><a class="pull-right">Remove</a>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="pull-left">Book Four</p><a class="pull-right">Remove</a>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="pull-left">Book Five</p><a class="pull-right">Remove</a>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="pull-left">Book Siz</p><a class="pull-right">Remove</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
-      <div class="mainbody pull-left">
-        <h1>What are you looking for?</h1>
-        <div class="form-group">
-          <label class="control-label">School</label>
-          <div class="controls">
-            <input type="text" class="form-control">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label">Course</label>
-          <div class="controls">
-            <input type="text" class="form-control">
-          </div>
-        </div>
-        <h1 class="page-header">Found:</h1>
-        <ul class="list-group" style="width:100%">
-          <li class="list-group-item">
-            <p class="pull-left">Book One</p>
-            <p class="pull-right">Add to Wishlist</p>
-          </li>
-          <li class="list-group-item">
-            <p class="pull-left">Book Two</p>
-            <p class="pull-right">Add to Wishlist</p>
-          </li>
-          <li class="list-group-item">
-            <p class="pull-left">Book Three</p>
-            <p class="pull-right">Add to Wishlist</p>
-          </li>
-        </ul>
-      </div>
-      <div class="pull-right sidebar">
-        <h1 class="page-header">Wishlist</h1>
-        <ul class="list-group pull-right" style="width:100%">
-          <li class="list-group-item">
-            <p class="pull-left">Book One</p>
-            <p class="pull-right">Remove</p>
-          </li>
-          <li class="list-group-item">
-            <p class="pull-left">Book Two</p>
-            <p class="pull-right">Remove</p>
-          </li>
-          <li class="list-group-item">
-            <p class="pull-left">Book Three</p>
-            <p class="pull-right">Remove</p>
-          </li>
-          <li class="list-group-item">
-            <p class="pull-left">Book Four</p>
-            <p class="pull-right">Remove</p>
-          </li>
-          <li class="list-group-item">
-            <p class="pull-left">Book Five</p>
-            <p class="pull-right">Remove</p>
-          </li>
-          <li class="list-group-item">
-            <p class="pull-left">Book Siz</p>
-            <p class="pull-right">Remove</p>
-          </li>        </ul>
-      </div>
-    </div>
-  </body>
+    </body>
 
 </html>

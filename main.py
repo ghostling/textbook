@@ -45,4 +45,5 @@ app = webapp2.WSGIApplication([
     ('/', MainHandler),
     (r'/book/(\d+)', BookHandler),
     (r'/course/(\d+)', CourseHandler)
+    (r'/signup/(\d+)', SignupHandler)
 ], debug=True)
