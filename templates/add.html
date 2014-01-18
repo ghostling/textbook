@@ -1,11 +1,19 @@
 {% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="/static/collegeAC.js"></script>
+{% endblock %}
 {% block title %}Textbookloop - Add{% endblock %}
 {% block content %}
 <h1>Add a Course</h1>
 <div class="form-group">
-  <label class="control-label">School</label>
+    <div class="ui-widget">
+  <label class="control-label" for="school">School</label>
   <div class="controls">
-    <input type="text" class="form-control">
+    <input type="text" class="form-control" id="school">
   </div>
 </div>
 <div class="form-group">

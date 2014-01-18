@@ -1,1 +1,1 @@
-COLLEGES = open('colleges.txt','r').readlines()
+COLLEGES = open('colleges.txt', 'r').readlines()
