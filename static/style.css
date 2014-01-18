@@ -22,14 +22,15 @@ footer {
   width: 100vw;
   height: 100vh;
   background-color: #222;
+  padding: 5%;
+  overflow-y: auto;
 }
 .frame {
-  width: 50%;
-  margin: 0 auto;
+  width: 60%;
+  margin-left: 20%;
   background-color: #fff;
   padding: 20px;
   border-radius: 6px;
-  margin-top: 5%;
 }
 .banner{
   width: 300px;
