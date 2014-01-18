@@ -4,7 +4,12 @@
 
 {% block head %}
 
-{# This is a comment. #}
+<style>
+    td {
+        text-align: right;
+        padding-right: 25px;
+    }
+</style>
 
 {% endblock %}
 
@@ -22,15 +27,29 @@
       </div>
       <div class="modal-body">
         <h1>Sign Up</h1>
-        <form id=signup>
-          <input type="email" name="email" class="form-control" placeholder="Email">
-          <input type="password" name="password" class="form-control" placeholder="Password">
-          <input type="password" name="c-password" class="form-control" placeholder="Confirm Password">
-        </form>
-      </div>
+        <form id="signup" action="/signup" method="post">
+          <table style="margin: 0 auto;">
+            <tr>
+                <td>Name: </td><td><input type="text" name="name" class="form-control" placeholder="Name"></td>
+            </tr>
+            <tr>
+                <td>College: </td><td><input type="text" name="college" class="form-control" placeholder="College"></td>
+            </tr>
+            <tr>
+                <td>Email: </td><td><input type="email" name="email" class="form-control" placeholder="Email"></td>
+            </tr>
+            <tr>
+                <td>Password: </td><td><input type="password" name="password" class="form-control" placeholder="Password"></td>
+            </tr>
+            <tr>
+                <td>Confirm: </td><td><input type="password" name="c-password" class="form-control" placeholder="Confirm Password"></td>
+            </tr>
+          </table>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Submit</button>
+          <input type="submit" class="btn btn-primary">
+      </div>
+        </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
