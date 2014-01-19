@@ -149,8 +149,8 @@ class BuyHandler(BaseHandler):
         self.render('buy.html', wishlist=s.wishlist)
 
     def post(self):
-        course = self.request.get("course")
-        course = md.Course.query(md.Course.course == course).fetch(1)
+        courseinput = self.request.get("course")
+        course = md.Course.query(md.Course.course == courseinput).fetch()
         relatedBooks = []
         if course:
             book_list = course[0].textbooks
@@ -160,10 +160,10 @@ class BuyHandler(BaseHandler):
                 allBooks = md.UserBook.query(md.UserBook.book.isbn == book.isbn).fetch()
 
                 for book in allBooks:
-                    relatedBooks.append[{'book': book,
-                        'owner': md.Student.get_by_id(book.sellerID)}]
+                    student = md.Student.get_by_id(int(book.sellerID))
+                    relatedBooks.append({'book': book, 'owner': student})
 
-        self.render('buy.html', book_list=relatedBooks, course=course[0].course)
+        self.render('buy.html', book_list=relatedBooks, course=courseinput)
 
 class AddHandler(BaseHandler):
     def get(self):

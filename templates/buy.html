@@ -16,7 +16,7 @@
   <ul class="list-group" style="width:100%">
     {% for b in book_list %}
     <li class="list-group-item">
-        <p class="pull-left"><strong>*{{ b['book'].condition }}* </strong>{{ b['book'].title }} by {{ b['owner'].name }} for {{ b['book'].price }}</p>
+        <p class="pull-left"><strong>*{{ b['book'].condition }}* </strong>{{ b['book'].book.title }} by {{ b['owner'].name }} for {{ b['book'].price }}</p>
       <a class="pull-right">Add to Wishlist</a>
     </li>
     {% endfor %}
