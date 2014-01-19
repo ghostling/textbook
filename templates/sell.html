@@ -14,16 +14,4 @@
   </select><br>
   <input id="sell" type="submit" class="btn btn-primary" value="Sell">
 </form>
-<br><br>
-{% if selling %}
-<h1 class="page-header">Your Books on Sale Now:</h1>
-<ul class="list-group pull-left" style="width:100%">
-  {% for book in selling %}
-  <li class="list-group-item">
-      <p class="pull-left"><strong>*{{ book.condition }}*</strong> {{ book.title }} by {{ book.authors }} for {{ book.price }}</p>
-    <a class="pull-right">Mark Claimed</a>
-  </li>
-  {% endfor %}
-{% endif %}
-</ul>
 {% endblock %}

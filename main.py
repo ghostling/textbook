@@ -106,28 +106,49 @@ class SellHandler(BaseHandler):
 
     def post(self):
         isbn = self.request.get('isbn')
+        qry = md.Book.query(md.Book.isbn == isbn).fetch()
+
+        if qry:
+            # Book already in DB, use it as reference
+            book = qry[0]
+        else:
+            # Not in DB, make a new one and add it there
+            b = getBookInfoFromISBN(isbn)
+            book = md.Book(title=b['title'],
+                           authors=b['authors'][0],
+                           isbn=b['isbn'],
+                           image=b['image'])
+            book.put()
+
         price = self.request.get('price')
         condition = self.request.get('condition')
-        b = getBookInfoFromISBN(isbn)
         sellerID = self.user.key.id()
-        book = md.Book(title=b['title'],
-                       authors=b['authors'][0],
-                       isbn=b['isbn'],
-                       image=b['image'],
-                       price=price,
-                       condition=condition,
-                       sellerID=sellerID)
-        book.put()
 
-        # Now we want to update the current user's selling list.
-        if self.user.selling:
-            self.user.selling.append(book)
-        else:
-            self.user.selling = [book]
+        #check if textbook belongs to any course
+        parent_course = md.Course.query(md.Course.textbooks.IN(book))
+        if parent_course:
+            #make a copy of the book for the student
+            s_book = md.UserBook(
+                book=book,
+                condition=condition,
+                price=price,
+                sellerID=self.user.key.id()
+            )
+            s_book.put()
 
-        self.user.put()
+            # Now we want to update the current user's selling list.
+            if self.user.selling:
+                self.user.selling.append(book)
+            else:
+                self.user.selling = [book]
+
+            self.user.put()
 
         self.redirect('/sell')
+
+        #TO DO:
+        #else:
+            #doesn't belong to any, notify and prompt to add to a course
 
 class BuyHandler(BaseHandler):
     def get(self):
@@ -143,7 +164,7 @@ class BuyHandler(BaseHandler):
 
             #find collections for da books
             for book in book_list:
-                allBooks = md.Book.query(md.Book.isbn == book.isbn).fetch()
+                allBooks = md.UserBook.query(md.UserBook.book.isbn == book.isbn).fetch()
 
                 for book in allBooks:
                     relatedBooks.append[{'book': book,

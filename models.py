@@ -6,9 +6,6 @@ class Book(ndb.Model):
     authors = ndb.StringProperty(required=True)
     isbn = ndb.StringProperty(required=True)
     image = ndb.StringProperty() # just be a link to an image for now?
-    price = ndb.FloatProperty()
-    condition = ndb.StringProperty()
-    sellerID = ndb.StringProperty()
 
 class Course(ndb.Model):
     """a course with a list of textbooks for the course. title is something like
@@ -25,3 +22,10 @@ class Student(ndb.Model):
     email = ndb.StringProperty(required=True)
     schoolname = ndb.StringProperty(required=True)
     pw_hash = ndb.StringProperty(required=True)
+
+class UserBook(ndb.Model):
+    """a book owned by a student with ideal price and conidtion"""
+    book = ndb.StructuredProperty(Book, repeated=False)
+    conidition = ndb.StringProperty(required=True)
+    price = ndb.FloatProperty()
+    sellerID = ndb.StringProperty()
