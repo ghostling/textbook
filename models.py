@@ -29,3 +29,8 @@ class Collection(ndb.Model):
     book = ndb.StructuredProperty(Book, repeated=False)
     owner = ndb.LocalStructuredProperty(Student, repeated=True)
 
+class UserBook(ndb.Model):
+    """a book owned by a student with ideal price and conidtion"""
+    book = ndb.StructuredProperty(Book, repeated=False)
+    conidition = ndb.StringProperty(required=True)
+    price = ndb.FloatProperty()

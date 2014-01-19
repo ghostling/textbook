@@ -109,6 +109,8 @@ class SellHandler(BaseHandler):
         authors = self.request.get('authors')
         isbn = self.request.get('isbn')
         image_url = self.request.get('image')
+        condition = self.request.get('condition')
+        price = self.request.get('price')
 
         book = md.Book(
             title=title,
@@ -122,6 +124,14 @@ class SellHandler(BaseHandler):
         if parent_course:
             #belongs to at least 1
             student = md.Student.get_by_id(self.user)
+
+            #make a copy of the book for the student
+            s_book = md.UserBook(
+                book=book,
+                condition=condition,
+                price=price,
+            )
+            
             collection = md.Collection.query(md.Collection.book == book)
             if collection:
                 collection.owner.append(student)
