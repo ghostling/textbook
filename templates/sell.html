@@ -3,22 +3,15 @@
 {% block content %}
 <h1>New Book to Sell?</h1>
 <form>
-    <input type="text" class="form-control pull-left input-lg" placeholder="Enter the ISBN, Book Title, or Author....">
+  <input type="text" class="form-control pull-left input-lg" placeholder="Enter the ISBN, Book Title, or Author....">
+  <div class="pull-left">$<input type="number" name="price" class="form-control" placeholder="50" style="display:inline-block;"></div>
+  <select name="condition" class="form-control">
+    <option>Condition</option>
+    <option value="New">New</option>
+    <option value="Very Good">Very Good</option>
+    <option value="Good">Good</option>
+    <option value="Acceptable">Acceptable</option>
+  </select><br>
+  <input id="sell" type="submit" class="btn btn-primary" value="Sell">
 </form>
-<br><br>
-<h1 class="page-header">Your Books on Sale Now:</h1>
-<ul class="list-group pull-left" style="width:100%">
-  <li class="list-group-item">
-    <p class="pull-left">First Item - $50</p>
-    <a class="pull-right">Mark Claimed</a>
-  </li>
-  <li class="list-group-item">
-    <p class="pull-left">Second Item - $80</p>
-    <a class="pull-right">Mark Claimed</a>
-  </li>
-  <li class="list-group-item">
-    <p class="pull-left">Third Item - $10</p>
-    <a class="pull-right">Mark Claimed</a>
-  </li>
-</ul>
 {% endblock %}

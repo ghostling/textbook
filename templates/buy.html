@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Textbookloop - Buy{% endblock %}
 {% block content %}
-<div class="mainbody pull-left">
   <h1>What are you looking for?</h1>
   <form method="post">
     <div class="form-group">
@@ -26,19 +25,4 @@
   {% elif course %}
   Sorry, we're unable to find any books for <strong>{{ course }}</strong> currently. :(
   {% endif %}
-</div>
-<div class="pull-right sidebar">
-  <h1 class="page-header">Wishlist</h1>
-  {% if wishlist %}
-  <ul class="list-group pull-right" style="width:100%">
-    {% for book in wishlist %}
-    <li class="list-group-item">
-      <p class="pull-left">{{ book.title }}</p><a class="pull-right">Remove</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  Your wishlist is currently empty! Add some books :)
-  {% endif %}
-</div>
 {% endblock %}

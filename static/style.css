@@ -40,3 +40,16 @@ footer {
 .ui-autocomplete {
   z-index: 1100!important;
 }
+body {
+  background: #eee;
+}
+[name=condition]{
+  width: 20%;
+}
+[name=price] {
+  display: inline-block;
+  width: 95%;
+}
+#sell {
+  width: 10%;
+}
