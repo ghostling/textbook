@@ -23,3 +23,7 @@ body {
 [name=price] {
   display: inline-block;
 }
+#brand {
+  margin-top:-19px;
+  margin-bottom:-10px;   
+}

@@ -3,6 +3,7 @@
    height:40px 
 }
 footer {
+  padding-top: 100px;
   text-align:center;
   font-weight:bold;
 }
@@ -52,4 +53,14 @@ body {
 }
 #sell {
   width: 10%;
+}
+#brand {
+  margin-top:-19px;
+  margin-bottom:-10px;   
+}
+#wrapper {
+  min-height: 80vh;
+}
+.jumbotron {
+  background: #fff;
 }
