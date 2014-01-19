@@ -24,28 +24,26 @@
 <h1>Add a Course</h1>
 <form method="post">
 <div class="form-group">
-    <div class="ui-widget">
+    <div class="form-group ui-widget">
   <label class="control-label" for="school">School</label>
   <div class="controls">
-    <input type="text" class="form-control" id="school" name="school">
+    <input type="text" class="form-control input-lg" id="school" name="school" placeholder="e.g. University of New Mexico">
   </div>
 </div>
 <div class="form-group">
   <label class="control-label">Course</label>
   <div class="controls">
-    <input type="text" class="form-control" name="course">
+    <input type="text" class="form-control input-lg" name="course" placeholder="e.g. Introduction to Economics">
   </div>
 </div>
 <div class="form-group">
-  <label class="control-label">Book(s)</label>
+  <label class="control-label">Add Book(s) by ISBN</label>
   <div class="controls">
-      <div id="coursebooks">
-    <input type="text" class="form-control pull-left input-lg isbn-field" placeholder="Add Book by ISBN...." name="book">
-    </select>
-    </select>
+    <div id="coursebooks">
+        <input type="text" class="form-control pull-left input-lg isbn-field" placeholder="e.g. 9780747591054" name="book">
     </div>
 </div>
-  </div>
+</div>
 </div>
 <p><a id="addMoreBooks">Add more books...</a></p>
 <input type="submit" class="btn btn-primary">
