@@ -246,12 +246,14 @@ class SignupHandler(BaseHandler):
                                  pw_hash=makePWHash(name, pw),
                                  schoolname=college)
             new_student.put()
+
+            # A user is immediately logged in after signup.
+            self.login(new_student)
+            self.redirect('/')
         else:
             pass # TODO: should probably error check...
+            self.redirect('/')
 
-        # A user is immediately logged in after signup.
-        self.login(new_student)
-        self.redirect('/')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
