@@ -10,9 +10,6 @@ import urllib2
 import webapp2
 import models as md
 import logging
-import pprint
-import sys
-from apiclient.discovery import build
 
 from secret import SECRET_KEY
 from colleges import COLLEGES
@@ -47,17 +44,13 @@ def validPW(name, password, h):
     return h == makePWHash(name, password, salt)
 
 def getBookInfoFromISBN(isbn):
-    api_key = 'AIzaSyAIcReDZBy9Q1QMR-OFuvhyyDldJsjNx_k'
-    service = build('books', 'v1', developerKey=api_key)
-    request = service.volumes().list(q=isbn)
-    response = request.execute()
-    if response.get('totalItems') > 0:
-        book = response.get('items')[0]
-        title = book['volumeInfo']['title']
-        authors = book['volumeInfo']['authors']
-        image = ''
-        if 'imageLinks' in book['volumeInfo']:
-            image = book['volumeInfo']['imageLinks']['thumbnail']
+    link = "https://www.googleapis.com/books/v1/volumes?q=%s" % isbn
+    page = urllib2.urlopen(link).read()
+    j = json.loads(page)
+    if j['totalItems'] != 0:
+        title = j['items'][0].get('volumeInfo').get('title')
+        authors = j['items'][0].get('volumeInfo').get('authors')
+        image = j['items'][0].get('volumeInfo').get('imageLinks').get('thumbnail')
         return {'title': title, 'authors': authors, 'isbn': isbn, 'image': image}
     return None
 
@@ -268,6 +261,7 @@ class SignupHandler(BaseHandler):
         else:
             pass # TODO: should probably error check...
             self.redirect('/')
+
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
