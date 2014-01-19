@@ -101,13 +101,12 @@ class MainHandler(BaseHandler):
 
 class SellHandler(BaseHandler):
     def get(self):
-        self.render('sell.html')
+        s = self.user
+        self.render('sell.html', selling=s.selling)
 
     def post(self):
-
-        title = self.request.get('title')
-        authors = self.request.get('authors')
         isbn = self.request.get('isbn')
+<<<<<<< HEAD
         image_url = self.request.get('image')
         condition = self.request.get('condition')
         price = self.request.get('price')
@@ -142,32 +141,52 @@ class SellHandler(BaseHandler):
         #TO DO:
         #else:
             #doesn't belong to any, notify and prompt to add to a course
+=======
+            b = getBookInfoFromISBN(isbn)
+            book = md.Book(title=b['title'],
+                           authors=b['authors'][0],
+                           isbn=b['isbn'],
+                           image=b['image'])
+            book.put()
+
+        # Now we want to update the current user's selling list.
+        if self.user.selling:
+            self.user.selling.append(book)
+        else:
+            self.user.selling = [book]
+
+        self.user.put()
+
+        # And add this user into a collection where this book exists.
+        c = md.Collection.query(md.Collection.book == book).fetch(1)
+
+        if c:
+            c[0].owner.append(self.user)
+        else:
+            c = md.Collection(book=book, owner=[self.user])
+            c.put()
+
+        self.redirect('/sell')
+>>>>>>> 2687c966e23908c02a10c1daf4044c554a769bef
 
 class BuyHandler(BaseHandler):
     def get(self):
-
-        self.render('buy.html')
+        s = self.user
+        self.render('buy.html', wishlist=s.wishlist)
 
     def post(self):
-        course_title = self.request.get("coursename")
-        course = md.Course.query(md.Course.title == course_title).fetch(1)
-        book_list = None
-        collections = None
+        course = self.request.get("course")
+        course = md.Course.query(md.Course.course == course).fetch(1)
+        collections = []
         if course:
-            book_list = course.textbooks
+            book_list = course[0].textbooks
 
             #find collections for da books
             for book in book_list:
-                collection = md.Collection.query(md.Collection.book == book)
-                collections.append
+                c = md.Collection.query(md.Collection.book == book)
+                collections.append(c)
 
-        # TODO: Just the course.textbooks is probably not what we want. We
-        # need to use the Collection object somehow as that tells us if those
-        # books are actually available...
-
-        # After querying for a specific course by its title, we can render the
-        # page again with the new information.
-        self.render('buy.html', book_list=book_list, course=course_title,
+        self.render('buy.html', book_list=book_list, course=course[0].course,
             collections=collections)
 
 class AddHandler(BaseHandler):
@@ -176,15 +195,24 @@ class AddHandler(BaseHandler):
 
     def makeBookHelper(self, b):
         book_dict = getBookInfoFromISBN(b)
+<<<<<<< HEAD
         book = md.Book(title=book_dict['title'], authors=str(book_dict['authors']),
+=======
+        authors = " ".join(book_dict['authors'])
+        book = md.Book(title=book_dict['title'], authors=authors,
+>>>>>>> 2687c966e23908c02a10c1daf4044c554a769bef
                 isbn=book_dict['isbn'], image=book_dict['image'])
         book.put()
         return book
 
     def post(self):
         school = self.request.get('school')
+<<<<<<< HEAD
         title = self.request.get('course-title')
         name = self.request.get('course-name')
+=======
+        course = self.request.get('course')
+>>>>>>> 2687c966e23908c02a10c1daf4044c554a769bef
         book = self.request.get('book') # book can be a list of books or just one
 
         booklist = []
@@ -195,14 +223,22 @@ class AddHandler(BaseHandler):
         else:
             booklist.append(self.makeBookHelper(book))
 
+<<<<<<< HEAD
         course = md.Course(title=title,
                 schoolname=school,
                 name=name,
+=======
+        course = md.Course(course=course,
+                schoolname=school,
+>>>>>>> 2687c966e23908c02a10c1daf4044c554a769bef
                 textbooks=booklist)
         course.put()
         self.render('add.html', success=True)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2687c966e23908c02a10c1daf4044c554a769bef
 class LoginHandler(BaseHandler):
     def get(self):
         pass

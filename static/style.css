@@ -3,6 +3,7 @@
    height:40px 
 }
 footer {
+  padding-top: 100px;
   text-align:center;
   font-weight:bold;
 }
@@ -41,11 +42,25 @@ footer {
   z-index: 1100!important;
 }
 body {
-  background-color: #eee;
+  background: #eee;
 }
-.modal-body {
-  background-color: #eee;
+[name=condition]{
+  width: 20%;
 }
-.modal-footer {
-  margin-top: 0px;
+[name=price] {
+  display: inline-block;
+  width: 95%;
+}
+#sell {
+  width: 10%;
+}
+#brand {
+  margin-top:-19px;
+  margin-bottom:-10px;   
+}
+#wrapper {
+  min-height: 80vh;
+}
+.jumbotron {
+  background: #fff;
 }

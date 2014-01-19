@@ -18,5 +18,12 @@ footer {
   margin-top: -10px;
 }
 body {
-  background-color: #eee;
+  background: #eee;
+}
+[name=price] {
+  display: inline-block;
+}
+#brand {
+  margin-top:-19px;
+  margin-bottom:-10px;   
 }

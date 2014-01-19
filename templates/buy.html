@@ -1,28 +1,28 @@
 {% extends "base.html" %}
 {% block title %}Textbookloop - Buy{% endblock %}
 {% block content %}
-<h1>What are you looking for?</h1>
-<form method="post">
-<div class="form-group">
-    <label class="control-label">Course</label>
-    <div class="controls">
-        <input type="text" name="coursename" class="form-control" value="{{course}}">
+
+  <h1>What are you looking for?</h1>
+  <form method="post">
+    <div class="form-group">
+        <label class="control-label">Course</label>
+        <div class="controls">
+            <input type="text" name="course" class="form-control" value="{{course}}">
+        </div>
     </div>
-</div>
-</form>
-{% if book_list %}
-<h1 class="page-header">Found:</h1>
-<ul class="list-group" style="width:100%">
-{% for book in book_list %}
-<li class="list-group-item">
-    {# TODO: Fix the Available stuff; need to display author and perhaps
-       also which users are selling it? #}
-  <p class="pull-left">{{ book.title }}<a>Available: $35</a></p>
-  <a class="pull-right">Add to Wishlist</a>
-</li>
-{% endfor %}
-</ul>
-{% elif course %}
-Sorry, we're unable to find any books for <strong>{{ course }}</strong> currently. :(
-{% endif %}
+  </form>
+  {% if book_list %}
+  <h1 class="page-header">Found:</h1>
+  <ul class="list-group" style="width:100%">
+    {% for book in book_list %}
+    <li class="list-group-item">
+        <p class="pull-left"><strong>*{{ book.condition }}* </strong>{{ book.title }} by {{ book.author }} for {{ book.price }}</p>
+      <a class="pull-right">Add to Wishlist</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% elif course %}
+  Sorry, we're unable to find any books for <strong>{{ course }}</strong> currently. :(
+  {% endif %}
+>>>>>>> 2687c966e23908c02a10c1daf4044c554a769bef
 {% endblock %}

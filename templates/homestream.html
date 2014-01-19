@@ -4,6 +4,7 @@
 
 {% block content %}
 <div class="pull-left mainbody">
+<<<<<<< HEAD
 <h1>Your Books on Sale Now:</h1>
 <ul class="list-group pull-left" style="width:100%">
   <li class="list-group-item">
@@ -19,6 +20,21 @@
     <a class="pull-right">Mark Claimed</a>
   </li>
 </ul>
+=======
+{% if selling %}
+<h1>Your Books on Sale Now:</h1>
+<ul class="list-group pull-left" style="width:100%">
+  {% for book in selling %}
+  <li class="list-group-item">
+    <p class="pull-left">{{ book.title }} - {{ book.price }}</p>
+    <a class="pull-right">Mark Claimed</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<h1>You currently do not have any books for sale.</h1>
+{% endif %}
+>>>>>>> 2687c966e23908c02a10c1daf4044c554a769bef
 </div>
 <div class="pull-right sidebar">
   <h1 class="page-header">Wishlist</h1>
