@@ -10,8 +10,7 @@ class Book(ndb.Model):
 class Course(ndb.Model):
     """a course with a list of textbooks for the course. title is something like
     Data Structures and Algorithms, name is EECS 281"""
-    title = ndb.StringProperty(required=True)
-    name = ndb.StringProperty(required=True)
+    course = ndb.StringProperty(required=True)
     schoolname = ndb.StringProperty(required=True)
     textbooks = ndb.StructuredProperty(Book, repeated=True)
 

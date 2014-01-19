@@ -7,7 +7,7 @@
     <div class="form-group">
         <label class="control-label">Course</label>
         <div class="controls">
-            <input type="text" name="coursename" class="form-control" value="{{course}}">
+            <input type="text" name="course" class="form-control" value="{{course}}">
         </div>
     </div>
   </form>
@@ -18,7 +18,7 @@
     <li class="list-group-item">
         {# TODO: Fix the Available stuff; need to display author and perhaps
            also which users are selling it? #}
-      <p class="pull-left">{{ book.title }}<a>Available: $35</a></p>
+      <p class="pull-left">{{ book.title }}</p>
       <a class="pull-right">Add to Wishlist</a>
     </li>
     {% endfor %}
