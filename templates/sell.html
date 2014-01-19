@@ -4,14 +4,17 @@
 <h1>New Book to Sell?</h1>
 <form method="post">
     <input type="text" name="isbn" class="form-control pull-left input-lg" placeholder="Enter the ISBN number of the book">
-  <div class="pull-left">$<input type="number" step="any" name="price" class="form-control" placeholder="50" style="display:inline-block;"></div>
-  <select name="condition" class="form-control">
-    <option>Condition</option>
-    <option value="New">New</option>
-    <option value="Very Good">Very Good</option>
-    <option value="Good">Good</option>
-    <option value="Acceptable">Acceptable</option>
-  </select><br>
+  <div class="pull-left">
+      $<input type="number" step="any" name="price" class="form-control" placeholder="50">
+      <select name="condition" class="form-control">
+        <option>Condition</option>
+        <option value="New">New</option>
+        <option value="Very Good">Very Good</option>
+        <option value="Good">Good</option>
+        <option value="Acceptable">Acceptable</option>
+      </select>
+    </div>
+  <br>
   <input id="sell" type="submit" class="btn btn-primary" value="Sell">
 </form>
 <br><br>
