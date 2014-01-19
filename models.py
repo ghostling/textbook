@@ -20,6 +20,13 @@ class UserBook(ndb.Model):
     sellerID = ndb.StringProperty()
     book = ndb.StructuredProperty(Book)
 
+class UserBook(ndb.Model):
+    """a book owned by a student with ideal price and conidtion"""
+    book = ndb.StructuredProperty(Book, repeated=False)
+    condition = ndb.StringProperty(required=True)
+    price = ndb.FloatProperty()
+    sellerID = ndb.StringProperty()
+
 class Student(ndb.Model):
     """represents a user/student"""
     wishlist = ndb.StructuredProperty(Book, repeated=True)

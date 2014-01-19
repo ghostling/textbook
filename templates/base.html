@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css">
     <link rel="stylesheet" media="only screen and (max-width: 600px)" href="/static/mobile-style.css">
     <link rel="stylesheet" media="only screen and (min-width: 601px)" href="/static/style.css">
+    <link rel="icon" type="image/png" href="/static/icon.png" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
@@ -13,26 +14,28 @@
     <meta name="viewport" content="width=device-width">
   </head>
   <body>
-    <div class="container">
+    <div id="wrapper" class="container">
       <div class="navbar navbar-default">
         <div class="container">
           <div class="navbar-header">
-            <a href="/" class="navbar-brand"><img src="/static/tbl_white.png" width="150px" style="margin-top:-10px;margin-bottom:-10px"></a>
+            <a href="/" class="navbar-brand"><img id="brand" src="/static/tbl_white.png" width="150px"></a>
           </div>
           <div class="collapse navbar-collapse">
+          {% if loggedin %}
             <ul class="nav navbar-nav">
               <li>
-                <a href="/sell">Sell</a>
+                <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-sell">Sell</a>
               </li>
               <li>
-                <a href="/buy">Buy</a>
+                <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-buy">Buy</a>
               </li>
               <li>
-                <a href="/add">Add</a>
+                <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-add" href="/add">Add</a>
               </li>
             </ul>
+          {% endif %}
           <ul class="nav navbar-nav navbar-right">
-            {% if not loggedin %}
+          {% if not loggedin %}
               <li><a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-signin">Login</a></li>
           {% else %}
             <li><a class="btn btn-primary btn-lg" href="/logout">Logout</a></li>
@@ -64,8 +67,16 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    </div>
     <script>
         $(".nav [href='"+window.location.pathname+"']").parent().addClass("active");
     </script>
+    <footer>
+    Built at MHacks, 2014<br>
+    <a href="http://jiexicao.com">Jiexi Cao</a> |
+    <a href="http://brdth.com">Brandon Gardner</a> |
+    <a href="http://RMartinez.co">Ruben Martinez</a> |
+    <a href="http://">Brad Thompson</a>
+    </footer>
   </body>
 </html>

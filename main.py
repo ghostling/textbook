@@ -139,6 +139,10 @@ class SellHandler(BaseHandler):
 
         self.redirect('/sell')
 
+        #TO DO:
+        #else:
+            #doesn't belong to any, notify and prompt to add to a course
+
 class BuyHandler(BaseHandler):
     def get(self):
         s = self.user
@@ -147,17 +151,19 @@ class BuyHandler(BaseHandler):
     def post(self):
         course = self.request.get("course")
         course = md.Course.query(md.Course.course == course).fetch(1)
-        collections = []
+        relatedBooks = []
         if course:
             book_list = course[0].textbooks
 
             #find collections for da books
             for book in book_list:
-                c = md.Collection.query(md.Collection.book == book)
-                collections.append(c)
+                allBooks = md.UserBook.query(md.UserBook.book.isbn == book.isbn).fetch()
 
-        self.render('buy.html', book_list=book_list, course=course[0].course,
-            collections=collections)
+                for book in allBooks:
+                    relatedBooks.append[{'book': book,
+                        'owner': md.Student.get_by_id(book.sellerID)}]
+
+        self.render('buy.html', book_list=relatedBooks, course=course[0].course)
 
 class AddHandler(BaseHandler):
     def get(self):
