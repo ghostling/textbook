@@ -49,8 +49,8 @@ def getBookInfoFromISBN(isbn):
     j = json.loads(page)
     title = j['items'][0]['volumeInfo']['title']
     authors = j['items'][0]['volumeInfo']['authors']
-    image = j['items'][0]['imageLinks']['thumbnail']
-    return title, authors
+    image = j['items'][0]['volumeInfo']['imageLinks']['thumbnail']
+    return {'title': title, 'authors': authors, 'isbn': isbn, 'image': image}
 
 class BaseHandler(webapp2.RequestHandler):
     def render(self, template, **kw):
@@ -174,24 +174,33 @@ class AddHandler(BaseHandler):
     def get(self):
         self.render('add.html')
 
-    # def post(self):
-    #     title = self.request.get("title")
-    #     name = self.request.get("name")
-    #     textbooks = self.request.get("textbooks")
-    #     book_titles = textbooks.split()
-    #     books = None;
+    def makeBookHelper(self, b):
+        book_dict = getBookInfoFromISBN(b)
+        book = md.Book(title=book_dict['title'], authors=str(book_dict['authors']),
+                isbn=book_dict['isbn'], image=book_dict['image'])
+        book.put()
+        return book
 
-    #     # for book_title in book_titles:
-    #         #get the actual book
+    def post(self):
+        school = self.request.get('school')
+        title = self.request.get('course-title')
+        name = self.request.get('course-name')
+        book = self.request.get('book') # book can be a list of books or just one
 
-    #     course = md.Course( 
-    #         title=title,
-    #         name=name,
-    #         schoolname= ,
-    #         textbooks=books,
-    #     )
+        booklist = []
 
-    #     course.put()
+        if type(book) == type([]):
+            for b in book:
+                booklist.append(self.makeBookHelper(b))
+        else:
+            booklist.append(self.makeBookHelper(book))
+
+        course = md.Course(title=title,
+                schoolname=school,
+                name=name,
+                textbooks=booklist)
+        course.put()
+        self.render('add.html', success=True)
 
 
 class LoginHandler(BaseHandler):

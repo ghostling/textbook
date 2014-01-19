@@ -1,44 +1,28 @@
 {% extends "base.html" %}
 {% block title %}Textbookloop - Buy{% endblock %}
 {% block content %}
-<div class="mainbody pull-left">
-  <h1>What are you looking for?</h1>
-  <form method="post">
-    <div class="form-group">
-        <label class="control-label">Course</label>
-        <div class="controls">
-            <input type="text" name="coursename" class="form-control" value="{{course}}">
-        </div>
+<h1>What are you looking for?</h1>
+<form method="post">
+<div class="form-group">
+    <label class="control-label">Course</label>
+    <div class="controls">
+        <input type="text" name="coursename" class="form-control" value="{{course}}">
     </div>
-  </form>
-  {% if book_list %}
-  <h1 class="page-header">Found:</h1>
-  <ul class="list-group" style="width:100%">
-    {% for book in book_list %}
-    <li class="list-group-item">
-        {# TODO: Fix the Available stuff; need to display author and perhaps
-           also which users are selling it? #}
-      <p class="pull-left">{{ book.title }}<a>Available: $35</a></p>
-      <a class="pull-right">Add to Wishlist</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% elif course %}
-  Sorry, we're unable to find any books for <strong>{{ course }}</strong> currently. :(
-  {% endif %}
 </div>
-<div class="pull-right sidebar">
-  <h1 class="page-header">Wishlist</h1>
-  {% if wishlist %}
-  <ul class="list-group pull-right" style="width:100%">
-    {% for book in wishlist %}
-    <li class="list-group-item">
-      <p class="pull-left">{{ book.title }}</p><a class="pull-right">Remove</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  Your wishlist is currently empty! Add some books :)
-  {% endif %}
-</div>
+</form>
+{% if book_list %}
+<h1 class="page-header">Found:</h1>
+<ul class="list-group" style="width:100%">
+{% for book in book_list %}
+<li class="list-group-item">
+    {# TODO: Fix the Available stuff; need to display author and perhaps
+       also which users are selling it? #}
+  <p class="pull-left">{{ book.title }}<a>Available: $35</a></p>
+  <a class="pull-right">Add to Wishlist</a>
+</li>
+{% endfor %}
+</ul>
+{% elif course %}
+Sorry, we're unable to find any books for <strong>{{ course }}</strong> currently. :(
+{% endif %}
 {% endblock %}

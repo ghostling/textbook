@@ -17,3 +17,6 @@ footer {
   height: auto;
   margin-top: -10px;
 }
+body {
+  background-color: #eee;
+}

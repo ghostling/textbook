@@ -2,9 +2,9 @@
 <html>
   <head>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css">
     <link rel="stylesheet" media="only screen and (max-width: 600px)" href="/static/mobile-style.css">
     <link rel="stylesheet" media="only screen and (min-width: 601px)" href="/static/style.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     {% block head %}
@@ -22,13 +22,13 @@
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li>
-                <a href="/sell">Sell</a>
+                <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-sell">Sell</a>
               </li>
               <li>
-                <a href="/buy">Buy</a>
+                <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-buy">Buy</a>
               </li>
               <li>
-                <a href="/add">Add</a>
+                <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-add" href="/add">Add</a>
               </li>
             </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -61,6 +61,65 @@
             <input type="submit" class="btn btn-primary">
           </div>
             </form>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="modal-sell" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Sell Your Books</h4>
+          </div>
+          <form>
+          <div class="modal-body">
+            <input type="text" class="form-control input-lg" placeholder="Enter the ISBN, Book Title, or Author....">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary">
+          </div>
+          </form>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="modal-buy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Whudya want?</h4>
+          </div>
+          <form>
+          <div class="modal-body">
+            <form method="post">
+            <div class="form-group">
+                <label class="control-label">Course</label>
+                <div class="controls">
+                    <input type="text" name="coursename" class="form-control" value="{{course}}">
+                </div>
+            </div>
+            </form>
+            {% if book_list %}
+                <h1 class="page-header">Found:</h1>
+                <ul class="list-group" style="width:100%">
+                {% for book in book_list %}
+                    <li class="list-group-item">
+                    {# TODO: Fix the Available stuff; need to display author and perhaps also which users are selling it? #}
+                    <p class="pull-left">{{ book.title }}<a>Available: $35</a></p>
+                    <a class="pull-right">Add to Wishlist</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% elif course %}
+                Sorry, we're unable to find any books for <strong>{{ course }}</strong> currently. :(
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary">
+          </div>
+          </form>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->

@@ -18,26 +18,31 @@
 {% endblock %}
 {% block title %}Textbookloop - Add{% endblock %}
 {% block content %}
+{% if success %}
+<div class="alert alert-success">Thanks for contributing!</div>
+{% endif %}
 <h1>Add a Course</h1>
 <form method="post">
 <div class="form-group">
     <div class="ui-widget">
   <label class="control-label" for="school">School</label>
   <div class="controls">
-    <input type="text" class="form-control" id="school">
+    <input type="text" class="form-control" id="school" name="school">
   </div>
 </div>
 <div class="form-group">
   <label class="control-label">Course</label>
   <div class="controls">
-    <input type="text" class="form-control">
+    <input type="text" class="form-control" name="course">
   </div>
 </div>
 <div class="form-group">
   <label class="control-label">Book(s)</label>
   <div class="controls">
       <div id="coursebooks">
-    <input type="text" class="form-control pull-left input-lg isbn-field" placeholder="Add Book by ISBN....">
+    <input type="text" class="form-control pull-left input-lg isbn-field" placeholder="Add Book by ISBN...." name="book">
+    </select>
+    </select>
     </div>
 </div>
   </div>
