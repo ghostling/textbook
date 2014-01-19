@@ -3,7 +3,8 @@
 {% block content %}
 <h1>New Book to Sell?</h1>
 <form method="post">
-    <input type="text" name="isbn" class="form-control pull-left input-lg" placeholder="Enter the ISBN number of the book">
+    <label class="control-label">ISBN of book...</label>
+    <input type="text" name="isbn" class="form-control pull-left input-lg" placeholder="e.g. 9780747591054">
   <div class="pull-left">
       $<input type="number" step="any" name="price" class="form-control" placeholder="50">
       <select name="condition" class="form-control">
