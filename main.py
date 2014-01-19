@@ -101,11 +101,20 @@ class MainHandler(BaseHandler):
 
 class SellHandler(BaseHandler):
     def get(self):
-        s = self.user
-        self.render('sell.html', selling=s.selling)
+        if self.user:
+            self.render('sell.html', selling=self.user.selling)
+        else:
+            self.render('sell.html')
 
     def post(self):
+        student = self.user
         isbn = self.request.get('isbn')
+
+        bk = md.Book.query(md.Book.isbn == isbn).fetch()
+
+        if bk:
+            book = bk[0]
+        else:
             b = getBookInfoFromISBN(isbn)
             book = md.Book(title=b['title'],
                            authors=b['authors'][0],
@@ -113,22 +122,20 @@ class SellHandler(BaseHandler):
                            image=b['image'])
             book.put()
 
+        # Make User Book
+        condition = self.request.get('condition')
+        price = self.request.get('price')
+
+        userbook = md.UserBook(condition=condition, price=float(price),
+                book=book, sellerID=str(student.key.id()))
+        userbook.put()
+
         # Now we want to update the current user's selling list.
-        if self.user.selling:
-            self.user.selling.append(book)
+        if student.selling:
+            student.selling.append(userbook)
         else:
-            self.user.selling = [book]
-
+            student.selling = [userbook]
         self.user.put()
-
-        # And add this user into a collection where this book exists.
-        c = md.Collection.query(md.Collection.book == book).fetch(1)
-
-        if c:
-            c[0].owner.append(self.user)
-        else:
-            c = md.Collection(book=book, owner=[self.user])
-            c.put()
 
         self.redirect('/sell')
 

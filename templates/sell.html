@@ -4,7 +4,7 @@
 <h1>New Book to Sell?</h1>
 <form method="post">
     <input type="text" name="isbn" class="form-control pull-left input-lg" placeholder="Enter the ISBN number of the book">
-  <div class="pull-left">$<input type="number" name="price" class="form-control" placeholder="50" style="display:inline-block;"></div>
+  <div class="pull-left">$<input type="number" step="any" name="price" class="form-control" placeholder="50" style="display:inline-block;"></div>
   <select name="condition" class="form-control">
     <option>Condition</option>
     <option value="New">New</option>
@@ -20,7 +20,7 @@
 <ul class="list-group pull-left" style="width:100%">
   {% for book in selling %}
   <li class="list-group-item">
-      <p class="pull-left"><strong>*{{ book.condition }}*</strong> {{ book.title }} by {{ book.authors }} for {{ book.price }}</p>
+      <p class="pull-left"><strong>*{{ book.condition }}*</strong> {{ book.book.title }} by {{ book.book.authors }} for ${{ book.price }}</p>
     <a class="pull-right">Mark Claimed</a>
   </li>
   {% endfor %}
