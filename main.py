@@ -96,7 +96,7 @@ class BaseHandler(webapp2.RequestHandler):
 class MainHandler(BaseHandler):
     def get(self):
         if self.user:
-            self.render('homestream.html')
+            self.render('homestream.html', wishlist=self.user.wishlist)
         else:
             self.render('index.html')
 
@@ -152,27 +152,45 @@ class SellHandler(BaseHandler):
         #else:
             #doesn't belong to any, notify and prompt to add to a course
 
+
 class BuyHandler(BaseHandler):
     def get(self):
         s = self.user
         self.render('buy.html', wishlist=s.wishlist)
 
     def post(self):
-        courseinput = self.request.get("course")
-        course = md.Course.query(md.Course.course == courseinput).fetch()
-        relatedBooks = []
-        if course:
-            book_list = course[0].textbooks
-
-            #find collections for da books
-            for book in book_list:
-                allBooks = md.UserBook.query(md.UserBook.book.isbn == book.isbn).fetch()
-
-                for book in allBooks:
-                    student = md.Student.get_by_id(int(book.sellerID))
-                    relatedBooks.append({'book': book, 'owner': student})
-
-        self.render('buy.html', book_list=relatedBooks, course=courseinput)
+        if self.request.get("isbn"):
+            student = self.user
+            isbn = self.request.get('isbn')
+            bk = md.Book.query(md.Book.isbn == isbn).fetch()
+            book = bk[0]
+            # Add to User Wishlist
+            if book:
+                if student.wishlist:
+                    student.wishlist.append(book)
+                else:
+                    student.wishlist = [book]
+                    
+                self.render('buy.html', success=True)
+            else:
+                self.render('buy.html', success=False)
+            
+        else:
+            courseinput = self.request.get("course")
+            course = md.Course.query(md.Course.course == courseinput).fetch()
+            relatedBooks = []
+            if course:
+                book_list = course[0].textbooks
+    
+                #find collections for da books
+                for book in book_list:
+                    allBooks = md.UserBook.query(md.UserBook.book.isbn == book.isbn).fetch()
+    
+                    for book in allBooks:
+                        student = md.Student.get_by_id(int(book.sellerID))
+                        relatedBooks.append({'book': book, 'owner': student})
+    
+            self.render('buy.html', book_list=relatedBooks, course=courseinput)
 
 class AddHandler(BaseHandler):
     def get(self):
