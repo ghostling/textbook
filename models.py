@@ -8,6 +8,7 @@ class Book(ndb.Model):
     image = ndb.StringProperty() # just be a link to an image for now?
     price = ndb.FloatProperty()
     condition = ndb.StringProperty()
+    sellerID = ndb.StringProperty()
 
 class Course(ndb.Model):
     """a course with a list of textbooks for the course. title is something like
@@ -24,9 +25,3 @@ class Student(ndb.Model):
     email = ndb.StringProperty(required=True)
     schoolname = ndb.StringProperty(required=True)
     pw_hash = ndb.StringProperty(required=True)
-
-class Collection(ndb.Model):
-    """represents all available books of a given title"""
-    book = ndb.StructuredProperty(Book, repeated=False)
-    owner = ndb.LocalStructuredProperty(Student, repeated=True)
-

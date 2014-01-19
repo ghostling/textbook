@@ -109,10 +109,14 @@ class SellHandler(BaseHandler):
         price = self.request.get('price')
         condition = self.request.get('condition')
         b = getBookInfoFromISBN(isbn)
+        sellerID = self.user.key.id()
         book = md.Book(title=b['title'],
                        authors=b['authors'][0],
                        isbn=b['isbn'],
-                       image=b['image'])
+                       image=b['image'],
+                       price=price,
+                       condition=condition,
+                       sellerID=sellerID)
         book.put()
 
         # Now we want to update the current user's selling list.
@@ -122,15 +126,6 @@ class SellHandler(BaseHandler):
             self.user.selling = [book]
 
         self.user.put()
-
-        # And add this user into a collection where this book exists.
-        c = md.Collection.query(md.Collection.book == book).fetch(1)
-
-        if c:
-            c[0].owner.append(self.user)
-        else:
-            c = md.Collection(book=book, owner=[self.user])
-            c.put()
 
         self.redirect('/sell')
 
@@ -142,17 +137,19 @@ class BuyHandler(BaseHandler):
     def post(self):
         course = self.request.get("course")
         course = md.Course.query(md.Course.course == course).fetch(1)
-        collections = []
+        relatedBooks = []
         if course:
             book_list = course[0].textbooks
 
             #find collections for da books
             for book in book_list:
-                c = md.Collection.query(md.Collection.book == book)
-                collections.append(c)
+                allBooks = md.Book.query(md.Book.isbn == book.isbn).fetch()
 
-        self.render('buy.html', book_list=book_list, course=course[0].course,
-            collections=collections)
+                for book in allBooks:
+                    relatedBooks.append[{'book': book,
+                        'owner': md.Student.get_by_id(book.sellerID)}]
+
+        self.render('buy.html', book_list=relatedBooks, course=course[0].course)
 
 class AddHandler(BaseHandler):
     def get(self):
