@@ -106,12 +106,14 @@ class SellHandler(BaseHandler):
 
     def post(self):
         isbn = self.request.get('isbn')
-            b = getBookInfoFromISBN(isbn)
-            book = md.Book(title=b['title'],
-                           authors=b['authors'][0],
-                           isbn=b['isbn'],
-                           image=b['image'])
-            book.put()
+        price = self.request.get('price')
+        condition = self.request.get('condition')
+        b = getBookInfoFromISBN(isbn)
+        book = md.Book(title=b['title'],
+                       authors=b['authors'][0],
+                       isbn=b['isbn'],
+                       image=b['image'])
+        book.put()
 
         # Now we want to update the current user's selling list.
         if self.user.selling:
