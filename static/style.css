@@ -37,3 +37,15 @@ footer {
   height: auto;
   margin-top: -10px;
 }
+.ui-autocomplete {
+  z-index: 1100!important;
+}
+body {
+  background-color: #eee;
+}
+.modal-body {
+  background-color: #eee;
+}
+.modal-footer {
+  margin-top: 0px;
+}
