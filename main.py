@@ -44,13 +44,15 @@ def validPW(name, password, h):
     return h == makePWHash(name, password, salt)
 
 def getBookInfoFromISBN(isbn):
-    link = "https://www.googleapis.com/books/v1/volumes?q=%s" % isbn
+    link = "https://www.googleapis.com/books/v1/volumes?country=US&q=%s" % isbn
     page = urllib2.urlopen(link).read()
     j = json.loads(page)
     if j['totalItems'] != 0:
         title = j['items'][0].get('volumeInfo').get('title')
         authors = j['items'][0].get('volumeInfo').get('authors')
-        image = j['items'][0].get('volumeInfo').get('imageLinks').get('thumbnail')
+        image = ''
+        if 'imageLinks' in j['items'][0].get('volumeInfo'):
+            image = j['items'][0].get('volumeInfo').get('imageLinks').get('thumbnail')
         return {'title': title, 'authors': authors, 'isbn': isbn, 'image': image}
     return None
 
