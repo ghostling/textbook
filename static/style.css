@@ -45,14 +45,20 @@ body {
   background: #eee;
 }
 [name=condition]{
-  width: 20%;
+  display: inline-block;
+  width: auto;
 }
 [name=price] {
   display: inline-block;
-  width: 95%;
+  width: 30%;
+}
+#put-together {
+  width: 100%;   
 }
 #sell {
+  padding-top: 10px;
   width: 10%;
+  float: right;
 }
 #brand {
   margin-top:-19px;
