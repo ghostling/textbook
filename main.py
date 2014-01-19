@@ -47,10 +47,12 @@ def getBookInfoFromISBN(isbn):
     link = "https://www.googleapis.com/books/v1/volumes?q=%s" % isbn
     page = urllib2.urlopen(link).read()
     j = json.loads(page)
-    title = j['items'][0]['volumeInfo']['title']
-    authors = j['items'][0]['volumeInfo']['authors']
-    image = j['items'][0]['volumeInfo']['imageLinks']['thumbnail']
-    return {'title': title, 'authors': authors, 'isbn': isbn, 'image': image}
+    if j['totalItems'] != 0:
+        title = j['items'][0].get('volumeInfo').get('title')
+        authors = j['items'][0].get('volumeInfo').get('authors')
+        image = j['items'][0].get('volumeInfo').get('imageLinks').get('thumbnail')
+        return {'title': title, 'authors': authors, 'isbn': isbn, 'image': image}
+    return None
 
 class BaseHandler(webapp2.RequestHandler):
     def render(self, template, **kw):
@@ -111,31 +113,36 @@ class SellHandler(BaseHandler):
         isbn = self.request.get('isbn')
 
         bk = md.Book.query(md.Book.isbn == isbn).fetch()
+        book = None
 
         if bk:
             book = bk[0]
         else:
             b = getBookInfoFromISBN(isbn)
-            book = md.Book(title=b['title'],
-                           authors=b['authors'][0],
-                           isbn=b['isbn'],
-                           image=b['image'])
-            book.put()
+            if b:
+                try:
+                    book = md.Book(title=b.get('title'),
+                                   authors=b.get('authors')[0],
+                                   isbn=b.get('isbn'),
+                                   image=b.get('image'))
+                    book.put()
+                except:
+                    self.redirect('/sell')
 
         # Make User Book
         condition = self.request.get('condition')
         price = self.request.get('price')
+        if book:
+            userbook = md.UserBook(condition=condition, price=float(price),
+                    book=book, sellerID=str(student.key.id()))
+            userbook.put()
 
-        userbook = md.UserBook(condition=condition, price=float(price),
-                book=book, sellerID=str(student.key.id()))
-        userbook.put()
-
-        # Now we want to update the current user's selling list.
-        if student.selling:
-            student.selling.append(userbook)
-        else:
-            student.selling = [userbook]
-        self.user.put()
+            # Now we want to update the current user's selling list.
+            if student.selling:
+                student.selling.append(userbook)
+            else:
+                student.selling = [userbook]
+            self.user.put()
 
         self.redirect('/sell')
 
@@ -171,11 +178,12 @@ class AddHandler(BaseHandler):
 
     def makeBookHelper(self, b):
         book_dict = getBookInfoFromISBN(b)
-        authors = " ".join(book_dict['authors'])
-        book = md.Book(title=book_dict['title'], authors=authors,
-                isbn=book_dict['isbn'], image=book_dict['image'])
-        book.put()
-        return book
+        if book_dict:
+            authors = " ".join(book_dict['authors'])
+            book = md.Book(title=book_dict['title'], authors=authors,
+                    isbn=book_dict['isbn'], image=book_dict['image'])
+            book.put()
+            return book
 
     def post(self):
         school = self.request.get('school')
