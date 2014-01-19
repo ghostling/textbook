@@ -106,13 +106,6 @@ class SellHandler(BaseHandler):
 
     def post(self):
         isbn = self.request.get('isbn')
-        bookDBQuery = md.Book.query(md.Book.isbn == isbn).fetch(1)
-
-        # If the book is not the database then we want to add it as a book, if
-        # not then we can use an existing one as reference.
-        if (bookDBQuery):
-            book = bookDBQuery[0]
-        else:
             b = getBookInfoFromISBN(isbn)
             book = md.Book(title=b['title'],
                            authors=b['authors'][0],

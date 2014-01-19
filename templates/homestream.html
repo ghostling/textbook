@@ -3,6 +3,34 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-Fix later
+<div class="pull-left mainbody">
+{% if selling %}
+<h1>Your Books on Sale Now:</h1>
+<ul class="list-group pull-left" style="width:100%">
+  {% for book in selling %}
+  <li class="list-group-item">
+    <p class="pull-left">{{ book.title }} - {{ book.price }}</p>
+    <a class="pull-right">Mark Claimed</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<h1>You currently do not have any books for sale.</h1>
+{% endif %}
+</div>
+<div class="pull-right sidebar">
+  <h1 class="page-header">Wishlist</h1>
+  {% if wishlist %}
+  <ul class="list-group pull-right" style="width:100%">
+    {% for book in wishlist %}
+    <li class="list-group-item">
+      <p class="pull-left">{{ book.title }}</p><a class="pull-right">Remove</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  Your wishlist is currently empty! Add some books :)
+  {% endif %}
+</div>
 {% endblock %}
 

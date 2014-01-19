@@ -17,3 +17,9 @@ footer {
   height: auto;
   margin-top: -10px;
 }
+body {
+  background: #eee;
+}
+[name=price] {
+  display: inline-block;
+}
